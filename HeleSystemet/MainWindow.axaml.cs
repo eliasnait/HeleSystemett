@@ -37,7 +37,6 @@ public partial class MainWindow : Window
         LogOutput.Text += $"{now} | {s}\n";
     }
 
-    // ✅ log fra background-tråd uden at GUI fryser
     private void UiLog(string msg)
     {
         Dispatcher.UIThread.Post(() => _log(msg));
@@ -135,7 +134,6 @@ public partial class MainWindow : Window
         LogOutput.Text = "";
     }
 
-    // ✅ HER: knappen i GUI'en starter robotten (uden freeze)
     private async void RunRobotButton_OnClick(object? sender, RoutedEventArgs e)
     {
         try
@@ -158,7 +156,6 @@ public partial class MainWindow : Window
                 await robot.BrakeReleaseAsync();
                 UiLog("Brake release ✅");
 
-                // ✅ find din robot.script i output-mappen
                 var scriptPath = Path.Combine(AppContext.BaseDirectory, "robot.script");
                 UiLog("Sender script: " + scriptPath);
 

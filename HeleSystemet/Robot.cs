@@ -43,7 +43,6 @@ public class Robot
         _streamDashboard = _clientDashboard.GetStream();
         _streamReaderDashboard = new StreamReader(_streamDashboard, Encoding.ASCII);
 
-        // Consume Dashboard welcome message
         ReadLineDashboard();
 
         _clientUrscript.Connect(_ipAddress, _urscriptPort);
@@ -53,12 +52,11 @@ public class Robot
     public async Task PowerOnAsync()
     {
         SendDashboard("power on\n");
-        ReadLineDashboard(); // consume reply (ofte "Powering on")
+        ReadLineDashboard(); 
 
-        // Vent indtil robotten IKKE længere er POWER_OFF
-        for (int i = 0; i < 30; i++) // max 30 sek
+        for (int i = 0; i < 30; i++) 
         {
-            var mode = RobotMode; // fx "Robotmode: POWER_ON" osv
+            var mode = RobotMode; 
             if (!mode.Contains("POWER_OFF"))
                 return;
 
@@ -71,9 +69,8 @@ public class Robot
     public async Task BrakeReleaseAsync()
     {
         SendDashboard("brake release\n");
-        ReadLineDashboard(); // consume reply
+        ReadLineDashboard(); 
 
-        // Vent indtil robotten er klar (ofte RUNNING)
         for (int i = 0; i < 30; i++)
         {
             var mode = RobotMode;
@@ -83,8 +80,7 @@ public class Robot
             await Task.Delay(1000);
         }
 
-        // Hvis den aldrig rammer RUNNING er det stadig OK nogle gange,
-        // så vi giver en mere informativ fejl:
+        
         throw new Exception("BrakeRelease timeout. Tjek protective stop / sikkerhed / remote.");
     }
 
