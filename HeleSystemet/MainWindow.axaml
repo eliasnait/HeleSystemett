@@ -1,0 +1,97 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="HeleSystemet.MainWindow"
+        Width="1000" Height="650"
+        Title="SystemLogin">
+
+  <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*">
+
+    <!-- Top bar -->
+    <Border Grid.Row="0" Padding="12" Background="#222">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Left"
+                   Foreground="White"
+                   FontSize="18"
+                   Text="System Login + Database" />
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+          <Button Name="LogoutButton" IsVisible="False" Content="Logout" Click="LogoutButton_OnClick"/>
+          <Button Content="Clear log" Click="ClearLogButton_OnClick"/>
+          <Button Content="Recreate DB" Click="RecreateDatabaseButton_OnClick"/>
+        </StackPanel>
+      </DockPanel>
+    </Border>
+
+    <!-- Main area -->
+    <Grid Grid.Row="1" ColumnDefinitions="2*,3*">
+
+      <!-- Left: Tabs -->
+      <TabControl Name="TabControl" Grid.Column="0" Margin="12">
+        <TabItem Name="LoginTab" Header="Login">
+          <StackPanel Spacing="10" Margin="12">
+            <TextBlock FontSize="16" Text="Login" />
+            <TextBlock Text="Username" />
+            <TextBox Name="LoginUsername" Watermark="fx: admin" />
+            <TextBlock Text="Password" />
+            <TextBox Name="LoginPassword" PasswordChar="●" Watermark="fx: admin" />
+            <Button Content="Login" Click="LoginButton_OnClick" />
+            <TextBlock Opacity="0.7"
+                       Text="Tip: Hvis DB ikke findes, oprettes den med admin/admin og user/user når appen åbner." />
+          </StackPanel>
+        </TabItem>
+
+        <TabItem Name="RobotTab" Header="Robot">
+          <StackPanel Spacing="10" Margin="12">
+            <TextBlock FontSize="16" Text="Robot kontrol" />
+            <TextBlock Opacity="0.7"
+                       Text="Her skal du koble din robot-kode på. Start med en knap der kalder din metode." />
+
+            <Button Content="Run robot program (placeholder)"
+                    Click="RunRobotButton_OnClick" />
+
+            <TextBlock Text="(Du kan også tilføje flere knapper, dropdowns, parametre osv.)"
+                       Opacity="0.7"/>
+          </StackPanel>
+        </TabItem>
+
+        <TabItem Name="UsersTab" Header="Users">
+          <StackPanel Spacing="10" Margin="12">
+            <TextBlock FontSize="16" Text="Create user (admin)" />
+            <TextBlock Text="Username" />
+            <TextBox Name="CreateUserUsername" />
+            <TextBlock Text="Password" />
+            <TextBox Name="CreateUserPassword" PasswordChar="●"/>
+            <CheckBox Name="CreateUserIsAdmin" Content="Admin user?" />
+            <Button Content="Create user" Click="CreateUserButton_OnClick" />
+          </StackPanel>
+        </TabItem>
+
+        <TabItem Name="DatabaseTab" Header="Database">
+          <StackPanel Spacing="10" Margin="12">
+            <TextBlock FontSize="16" Text="Database" />
+            <TextBlock Opacity="0.7"
+                       Text="Admin-only fanen. Du kan udvide med visning af users osv. senere." />
+          </StackPanel>
+        </TabItem>
+
+      </TabControl>
+
+      <!-- Right: Log -->
+      <Border Grid.Column="1" Margin="12" Padding="12" BorderBrush="#555" BorderThickness="1" CornerRadius="8">
+        <Grid RowDefinitions="Auto,*">
+          <TextBlock Grid.Row="0" FontSize="16" Text="Log" Margin="0,0,0,8"/>
+          <ScrollViewer Grid.Row="1">
+            <TextBlock Name="LogOutput" FontFamily="Consolas" TextWrapping="Wrap"/>
+          </ScrollViewer>
+        </Grid>
+      </Border>
+
+    </Grid>
+
+    <!-- Bottom bar -->
+    <Border Grid.Row="2" Padding="10" Background="#111">
+      <TextBlock Foreground="#BBB"
+                 Text="Når du er logget ind: Robot-tab vises. Admin ser også Users + Database." />
+    </Border>
+
+  </Grid>
+</Window>
